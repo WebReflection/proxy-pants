@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module">
+import {accessor, bound, caller, applier, bread, crumbs} from '../esm/index.js';
+
+
+
+// ### accessor
+const {textContent} = accessor(document.body);
+
+// the current body text
+textContent();
+
+// the new one
+textContent('proxy pants!');
+
+
+
+// ### applier & caller
+const {hasOwnProperty, toString} = caller(Object.prototype);
+
+// returns true
+hasOwnProperty({any: 'object'}, 'any');
+
+// [object Null]
+toString(null);
+
+const {fromCharCode} = applier(String);
+
+const charCodes = (...args) => fromCharCode(String, args);
+// <=>
+charCodes(60, 61, 62);
+
+
+
+// ### bound
+const map = new Map;
+const {get, set, has} = bound(map);
+
+// false
+has('some');
+
+// map
+set('some', 'value');
+
+// true
+has('some');
+
+// 'value'
+get('some');
+
+
+
+// ### bread & crumbs
+const namespace = {
+  some: 'value',
+  method(...args) {
+    return this.some + args.length;
+  },
+  Class: class Namespace {
+    get [Symbol.toStringTag]() {
+      return 'Namespace';
+    }
+  }
+};
+
+const facade = crumbs({
+  apply(path, args) {
+    return bread(namespace, path)(...args);
+  },
+  construct(path, args) {
+    const Class = bread(namespace, path);
+    return new Class;
+  },
+  get(path, key) {
+    return bread(namespace, path)[key];
+  },
+  has(path, key) {
+    return key in bread(namespace, path);
+  },
+  set(path, key, value) {
+    bread(namespace, path)[key] = value;
+    return true;
+  },
+  // alias for deleteProperty(path, key) {}
+  delete(path, key) {
+    return delete bread(namespace, path)[key];
+  }
+});
+
+facade.some;            // value
+facade.method(1, 2, 3); // some3
+new facade.Class;       // [object Namespace]
+'some' in facade;       // true
+facade.test = 'ok';
+facade.test;            // ok
+delete facade.test;     // true
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
