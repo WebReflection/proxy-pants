@@ -6,7 +6,7 @@ const allBoundsFor = Class => {
   const $Class = bound(Class);
   const $class = [];
   for (const key of ownKeys(Class)) {
-    if (typeof Class[key] === 'function')
+    if (typeof key !== 'symbol' && typeof Class[key] === 'function')
       $class.push($Class[key]);
   }
   return $class;

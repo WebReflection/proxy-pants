@@ -7,7 +7,7 @@ import {
 } from './object.js';
 
 const handler = {
-  get: (target, name) => {
+  get(target, name) {
     const context = target;
     while (!hasOwnProperty(target, name))
       target = getPrototypeOf(target);
