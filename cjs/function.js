@@ -9,13 +9,9 @@ exports.bind = bind;
 const call = c.bind(c);
 exports.call = call;
 
-const {get: g} = Reflect;
-const get = bind(c, g, Reflect);
-exports.get = get;
-
 const applierHandler = {
   get(target, name) {
-    return bind(a, get(target, name));
+    return bind(a, target[name]);
   }
 };
 const applier = target => new Proxy(target, applierHandler);
@@ -23,7 +19,7 @@ exports.applier = applier;
 
 const callerHandler = {
   get(target, name) {
-    return bind(c, get(target, name));
+    return bind(c, target[name]);
   }
 };
 const caller = target => new Proxy(target, callerHandler);
