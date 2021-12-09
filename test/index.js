@@ -80,3 +80,6 @@ assert(new root.a.C === map);
 assert(root !== root.a && root.a !== root.b);
 assert(delete root.a);
 assert(delete root.f().last);
+
+// this throws if Reflect.get was used instead
+bound(Array)[Symbol.species];

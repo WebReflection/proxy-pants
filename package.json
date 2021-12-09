@@ -4,6 +4,7 @@
   "description": "Secured and reliable Proxy based utilities for more or less common tasks",
   "main": "./cjs/index.js",
   "scripts": {
+    "bench": "node test/benchmark.js",
     "build": "npm run cjs && npm run test",
     "cjs": "ascjs esm cjs",
     "test": "c8 node test/index.js",
