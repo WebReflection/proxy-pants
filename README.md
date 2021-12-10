@@ -2,6 +2,8 @@
 
 [![build status](https://github.com/WebReflection/proxy-pants/actions/workflows/node.js.yml/badge.svg)](https://github.com/WebReflection/proxy-pants/actions) [![Coverage Status](https://coveralls.io/repos/github/WebReflection/proxy-pants/badge.svg?branch=main)](https://coveralls.io/github/WebReflection/proxy-pants?branch=main) [![CSP strict](https://webreflection.github.io/csp/strict.svg)](https://webreflection.github.io/csp/#-csp-strict)
 
+<sup>**Social Media Photo by [lan deng](https://unsplash.com/@landall) on [Unsplash](https://unsplash.com/)**</sup>  
+
 Secured and reliable Proxy based utilities for more or less common tasks:
 
   * **[accessor](#accessor)** to trap one or more accessors for any object
