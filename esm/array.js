@@ -1,5 +1,4 @@
 import {caller} from './function.js';
 
-const {concat, join, reduce} = caller([]);
-
-export {concat, join, reduce};
+const {concat, includes, join, reduce} = caller([]);
+export {concat, includes, join, reduce};

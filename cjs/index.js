@@ -13,3 +13,6 @@
   exports.bread = m.bread;
   exports.crumbs = m.crumbs;
 })(require('./breadcrumbs.js'));
+(m => {
+  exports.extender = m.extender;
+})(require('./extender.js'));

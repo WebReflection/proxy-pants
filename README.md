@@ -10,6 +10,12 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[applier & caller](#applier--caller)** to trap any borrowed callback/utility without needing to use `.call` or `.apply` to pass the context
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
+  * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
+    * **methods** are always the same bound reference
+    * **properties** are defined per extender and never directly attached to the source
+    * **accessors** are also defined per each extender
+    * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
+
 
 
 ### accessor
@@ -118,4 +124,36 @@ new facade.Class;       // [object Namespace]
 facade.test = 'ok';
 facade.test;            // ok
 delete facade.test;     // true
+```
+
+
+### extender
+
+```js
+// import {extender} from 'proxy-pants/extender';
+import {extender} from 'proxy-pants';
+
+const Magic = extender({
+  // properties are per extender and weakly related
+  isMagic: true,
+
+  // accessors context is the original source/target
+  get magic() {
+    // this === source
+    return Magic(this).isMagic;
+  },
+
+  // methods are always same bound method reference
+  hasMagic() {
+    // this === source
+    return Magic(this).magic;
+  }
+});
+
+const source = {};
+const target = Magic(source);
+
+magic.isMagic;  // true
+magic.magic;    // true
+magic.hasMagic; // true
 ```

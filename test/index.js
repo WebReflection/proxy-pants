@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, crumbs} = require('../cjs');
+const {accessor, applier, bound, bread, crumbs, extender} = require('../cjs');
 
 const {assert} = bound(console);
 
@@ -83,3 +83,48 @@ assert(delete root.f().last);
 
 // this throws if Reflect.get was used instead
 bound(Array)[Symbol.species];
+
+
+let extValue;
+const etxCreator = extender({
+  method(...args) {
+    extValue = [this, args];
+  },
+  get accessor() {
+    extValue = [this, 'get'];
+  },
+  set accessor(value) {
+    extValue = [this, 'set', value];
+  },
+  property: 0
+});
+
+const wrapped = {any: 'value'};
+const ext = etxCreator(wrapped);
+
+assert(ext.valueOf() === ext);
+
+assert(!hasOwnProperty(ext, ['property']));
+assert(ext.property === 0);
+ext.property = 1;
+assert(ext.property === 1);
+assert(etxCreator(wrapped).property === 1);
+assert(!hasOwnProperty(ext, ['property']));
+assert(etxCreator({}).property === 0);
+
+ext.accessor;
+assert(extValue[0] === wrapped);
+assert(extValue[1] === 'get');
+
+ext.accessor = 123;
+assert(extValue[0] === wrapped);
+assert(extValue[1] === 'set');
+assert(extValue[2] === 123);
+
+ext.method(1, 2, 3);
+assert(extValue[0] === wrapped);
+assert(extValue[1].join(',') === '1,2,3');
+
+assert(ext.any === 'value');
+ext.any = 'other';
+assert(ext.any === 'other');
