@@ -16,3 +16,6 @@
 (m => {
   exports.extender = m.extender;
 })(require('./extender.js'));
+(m => {
+  exports.own = m.own;
+})(require('./own.js'));

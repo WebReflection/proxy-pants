@@ -49,6 +49,10 @@
       "import": "./esm/function.js",
       "default": "./cjs/function.js"
     },
+    "./own": {
+      "import": "./esm/own.js",
+      "default": "./cjs/own.js"
+    },
     "./package.json": "./package.json"
   },
   "repository": {

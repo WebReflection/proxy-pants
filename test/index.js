@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, crumbs, extender} = require('../cjs');
+const {accessor, applier, bound, bread, crumbs, extender, own} = require('../cjs');
 
 const {assert} = bound(console);
 
@@ -128,3 +128,8 @@ assert(extValue[1].join(',') === '1,2,3');
 assert(ext.any === 'value');
 ext.any = 'other';
 assert(ext.any === 'other');
+
+const created = Object.create({inherited: true}, {prop: {value: true}});
+const {inherited, prop} = own(created);
+assert(!inherited);
+assert(prop);

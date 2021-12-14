@@ -15,6 +15,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
     * **properties** are defined per extender and never directly attached to the source
     * **accessors** are also defined per each extender
     * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
+  * **[own](#own)** to destructure only own properties
 
 
 
@@ -156,4 +157,23 @@ const target = Magic(source);
 magic.isMagic;  // true
 magic.magic;    // true
 magic.hasMagic; // true
+```
+
+
+
+### own
+
+```js
+// import {own} from 'proxy-pants/own';
+import {own} from 'proxy-pants';
+
+const created = Object.create(
+  {inherited: true},
+  {prop: {value: true}}
+);
+
+const {inherited, prop} = own(created);
+
+console.assert(!inherited);
+console.assert(prop);
 ```
