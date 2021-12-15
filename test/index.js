@@ -103,6 +103,7 @@ const wrapped = {any: 'value'};
 const ext = etxCreator(wrapped);
 
 assert(ext.valueOf() === ext);
+assert(etxCreator(wrapped) === etxCreator(ext));
 
 assert(!hasOwnProperty(ext, ['property']));
 assert(ext.property === 0);

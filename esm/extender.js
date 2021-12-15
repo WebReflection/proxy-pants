@@ -18,6 +18,8 @@ import {
   has as weakHas
 } from './weak-map.js';
 
+const id = Symbol('extender');
+
 export const extender = proto => {
   const overrides = new Map;
   const keys = ownKeys(proto);
@@ -62,9 +64,11 @@ export const extender = proto => {
   }
 
   const handler = {
-    get: (target, key) => mapHas(overrides, key) ?
-                            mapGet(overrides, key)(target).get() :
-                            target[key],
+    get: (target, key) => key === id ? target : (
+      mapHas(overrides, key) ?
+        mapGet(overrides, key)(target).get() :
+        target[key]
+    ),
     set: (target, key, value) => {
       if (mapHas(overrides, key))
         mapGet(overrides, key)(target).set(value);
@@ -74,7 +78,11 @@ export const extender = proto => {
     }
   };
 
+  const known = new WeakMap;
   return function (target) {
-    return new Proxy(target, handler);
+    const wrap = target[id] || target;
+    if (!weakHas(known, wrap))
+      weakSet(known, wrap, new Proxy(wrap, handler));
+    return weakGet(known, wrap);
   };
 };
