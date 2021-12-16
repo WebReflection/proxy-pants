@@ -19,3 +19,6 @@
 (m => {
   exports.own = m.own;
 })(require('./own.js'));
+(m => {
+  exports.secure = m.secure;
+})(require('./secure.js'));

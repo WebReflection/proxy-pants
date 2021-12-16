@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, crumbs, extender, own} = require('../cjs');
+const {accessor, applier, bound, bread, crumbs, extender, own, secure} = require('../cjs');
 
 const {assert} = bound(console);
 
@@ -134,3 +134,11 @@ const created = Object.create({inherited: true}, {prop: {value: true}});
 const {inherited, prop} = own(created);
 assert(!inherited);
 assert(prop);
+
+
+const {Array: $Array} = secure(global);
+const arr = $Array.from([1, 2, 3]);
+assert($Array.name === 'Array');
+assert(arr instanceof $Array);
+assert(arr.slice(0) instanceof $Array);
+assert(hasOwnProperty($Array.prototype, [Symbol.iterator]));

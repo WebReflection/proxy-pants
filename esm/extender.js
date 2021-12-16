@@ -3,20 +3,9 @@ import {bind, call} from './function.js';
 import {includes} from './array.js';
 import {getOwnPropertyDescriptor} from './object.js';
 import {ownKeys} from './reflect.js';
+import {secure} from './secure.js';
 
-import {
-  Map,
-  get as mapGet,
-  set as mapSet,
-  has as mapHas
-} from './map.js';
-
-import {
-  WeakMap,
-  get as weakGet,
-  set as weakSet,
-  has as weakHas
-} from './weak-map.js';
+const {Map, WeakMap} = secure(globalThis);
 
 const id = Symbol('extender');
 
@@ -29,49 +18,49 @@ export const extender = proto => {
     const descriptor = getOwnPropertyDescriptor(proto, key);
     if (includes(ownKeys(descriptor), 'value')) {
       const {value} = descriptor;
-      mapSet(overrides, key, typeof value === 'function' ?
+      overrides.set(key, typeof value === 'function' ?
         target => {
-          if (!weakHas(wm, target)) {
+          if (!wm.has(target)) {
             const $ = bind(value, target);
-            weakSet(wm, target, {get: () => $});
+            wm.set(target, {get: () => $});
           }
-          return weakGet(wm, target);
+          return wm.get(target);
         } :
         target => {
-          if (!weakHas(wm, target)) {
+          if (!wm.has(target)) {
             let $ = value;
-            weakSet(wm, target, {
+            wm.set(target, {
               get: () => $,
               set: value => { $ = value; }
             });
           }
-          return weakGet(wm, target);
+          return wm.get(target);
         }
       );
     }
     else {
       const {get, set} = descriptor;
-      mapSet(overrides, key, target => {
-        if (!weakHas(wm, target)) {
-          weakSet(wm, target, {
+      overrides.set(key, target => {
+        if (!wm.has(target)) {
+          wm.set(target, {
             get: () => call(get, target),
             set: value => { call(set, target, value); }
           });
         }
-        return weakGet(wm, target);
+        return wm.get(target);
       });
     }
   }
 
   const handler = {
     get: (target, key) => key === id ? target : (
-      mapHas(overrides, key) ?
-        mapGet(overrides, key)(target).get() :
+      overrides.has(key) ?
+        overrides.get(key)(target).get() :
         target[key]
     ),
     set: (target, key, value) => {
-      if (mapHas(overrides, key))
-        mapGet(overrides, key)(target).set(value);
+      if (overrides.has(key))
+        overrides.get(key)(target).set(value);
       else
         target[key] = value;
       return true;
@@ -81,8 +70,8 @@ export const extender = proto => {
   const known = new WeakMap;
   return function (target) {
     const wrap = target[id] || target;
-    if (!weakHas(known, wrap))
-      weakSet(known, wrap, new Proxy(wrap, handler));
-    return weakGet(known, wrap);
+    if (!known.has(wrap))
+      known.set(wrap, new Proxy(wrap, handler));
+    return known.get(wrap);
   };
 };

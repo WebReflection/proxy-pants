@@ -16,6 +16,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
     * **accessors** are also defined per each extender
     * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
   * **[own](#own)** to destructure only own properties
+  * **[secure](#secure)** to ensure local classes cannot be patched at runtime down their prototypal chain
 
 
 
@@ -33,6 +34,7 @@ textContent();
 // set the new one
 textContent('proxy pants!');
 ```
+
 
 
 ### applier & caller
@@ -57,6 +59,7 @@ charCodes(60, 61, 62);
 ```
 
 
+
 ### bound
 
 ```js
@@ -78,6 +81,7 @@ has('some');
 // 'value'
 get('some');
 ```
+
 
 
 ### bread & crumbs
@@ -128,6 +132,7 @@ delete facade.test;     // true
 ```
 
 
+
 ### extender
 
 ```js
@@ -176,4 +181,23 @@ const {inherited, prop} = own(created);
 
 console.assert(!inherited);
 console.assert(prop);
+```
+
+
+
+### secure
+
+```js
+// import {secure} from 'proxy-pants/secure';
+import {secure} from 'proxy-pants';
+
+const {
+  Map,
+  WekMap
+} = secure(globalThis);
+
+// both instances now can be used without
+// possible issues down the prototypal chain
+const map = new Map;
+const wm = new WekMap;
 ```

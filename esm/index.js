@@ -4,3 +4,4 @@ export {bound} from './bound.js';
 export {bread, crumbs} from './breadcrumbs.js';
 export {extender} from './extender.js';
 export {own} from './own.js';
+export {secure} from './secure.js';
