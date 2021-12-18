@@ -53,6 +53,10 @@
       "import": "./esm/own.js",
       "default": "./cjs/own.js"
     },
+    "./secure": {
+      "import": "./esm/secure.js",
+      "default": "./cjs/secure.js"
+    },
     "./package.json": "./package.json"
   },
   "repository": {
