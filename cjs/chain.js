@@ -1,5 +1,5 @@
 'use strict';
-const {apply, bind, call} = require('./function.js');
+const {apply, call} = require('./function.js');
 const {assign, getOwnPropertyDescriptors, getPrototypeOf} = require('./object.js');
 const {unshift} = require('./array.js');
 const {Map} = require('./globals.js');
@@ -32,7 +32,7 @@ const chain = source => {
         if (get)
           return call(get, target);
         if (typeof value === 'function')
-          return bind(value, target);
+          return value;
       }
       return target[key];
     },

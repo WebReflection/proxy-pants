@@ -148,16 +148,26 @@ const ca = ChainedArray([]);
 assert(ca.push(1) === ca.length);
 ca.length = 0;
 
-const ChainedObject = chain({
+const method = function () {
+  return this;
+};
+
+const proto = {
   _: '',
   get getter() {
     return this._;
   },
   set setter(value) {
     this._ = value;
-  }
-});
+  },
+  method
+};
+const ChainedObject = chain(proto);
 
 const co = ChainedObject({});
 co.setter = 'OK';
 assert(co.getter === 'OK');
+assert(co.method() == co);
+proto.method = function () { return null; };
+assert(co.method() == co);
+assert(co.method === method);

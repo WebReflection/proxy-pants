@@ -1,4 +1,4 @@
-import {apply, bind, call} from './function.js';
+import {apply, call} from './function.js';
 import {assign, getOwnPropertyDescriptors, getPrototypeOf} from './object.js';
 import {unshift} from './array.js';
 import {Map} from './globals.js';
@@ -31,7 +31,7 @@ export const chain = source => {
         if (get)
           return call(get, target);
         if (typeof value === 'function')
-          return bind(value, target);
+          return value;
       }
       return target[key];
     },
