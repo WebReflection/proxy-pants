@@ -164,10 +164,10 @@ const proto = {
 };
 const ChainedObject = chain(proto);
 
-const co = ChainedObject({});
+const so = {};
+const co = ChainedObject(so);
 co.setter = 'OK';
 assert(co.getter === 'OK');
-assert(co.method() == co);
+assert(co.method() == so);
 proto.method = function () { return null; };
-assert(co.method() == co);
-assert(co.method === method);
+assert(co.method() == so);
