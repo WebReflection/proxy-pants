@@ -26,19 +26,24 @@ export const chain = source => {
   const chained = descriptors(target);
   const handler = {
     get(target, key) {
-      const {value, get} = chained[key];
-      if (get)
-        return call(get, target);
-      if (typeof value === 'function')
-        return bind(value, target);
+      if (key in chained) {
+        const {value, get} = chained[key];
+        if (get)
+          return call(get, target);
+        if (typeof value === 'function')
+          return bind(value, target);
+      }
       return target[key];
     },
     set(target, key, value) {
-      const {set} = chained[key];
-      if (set)
-        call(set, target, value);
-      else
-        target[key] = value;
+      if (key in chained) {
+        const {set} = chained[key];
+        if (set) {
+          call(set, target, value);
+          return true;
+        }
+      }
+      target[key] = value;
       return true;
     }
   };
