@@ -41,6 +41,10 @@
       "import": "./esm/breadcrumbs.js",
       "default": "./cjs/breadcrumbs.js"
     },
+    "./chain": {
+      "import": "./esm/chain.js",
+      "default": "./cjs/chain.js"
+    },
     "./extender": {
       "import": "./esm/extender.js",
       "default": "./cjs/extender.js"

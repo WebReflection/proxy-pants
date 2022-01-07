@@ -14,6 +14,9 @@
   exports.crumbs = m.crumbs;
 })(require('./breadcrumbs.js'));
 (m => {
+  exports.chain = m.chain;
+})(require('./chain.js'));
+(m => {
   exports.extender = m.extender;
 })(require('./extender.js'));
 (m => {

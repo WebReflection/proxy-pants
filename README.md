@@ -10,6 +10,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[applier & caller](#applier--caller)** to trap any borrowed callback/utility without needing to use `.call` or `.apply` to pass the context
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
+  * **[chain](#chain)** to trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method
   * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
     * **methods** are always the same bound reference
     * **properties** are defined per extender and never directly attached to the source
@@ -129,6 +130,21 @@ new facade.Class;       // [object Namespace]
 facade.test = 'ok';
 facade.test;            // ok
 delete facade.test;     // true
+```
+
+
+
+### chain
+
+```js
+// import {chain} from 'proxy-pants/chain';
+import {chain} from 'proxy-pants';
+
+const asNode = chain(Node);
+const asElement = chain(Element);
+
+asNode(document.createTextNode('accessor')).data;
+asElement(document.body).querySelector('method');
 ```
 
 

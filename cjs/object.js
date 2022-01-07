@@ -3,6 +3,7 @@ const {bound} = require('./bound.js');
 const {caller} = require('./function.js');
 
 const {
+  assign,
   defineProperties,
   freeze,
   getOwnPropertyDescriptor,
@@ -12,6 +13,7 @@ const {
 
 const {hasOwnProperty} = caller({});
 
+exports.assign = assign;
 exports.defineProperties = defineProperties;
 exports.freeze = freeze;
 exports.getOwnPropertyDescriptor = getOwnPropertyDescriptor;

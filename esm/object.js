@@ -2,6 +2,7 @@ import {bound} from './bound.js';
 import {caller} from './function.js';
 
 const {
+  assign,
   defineProperties,
   freeze,
   getOwnPropertyDescriptor,
@@ -12,6 +13,7 @@ const {
 const {hasOwnProperty} = caller({});
 
 export {
+  assign,
   defineProperties,
   freeze,
   getOwnPropertyDescriptor,

@@ -4,9 +4,7 @@ const {bind, call} = require('./function.js');
 const {includes} = require('./array.js');
 const {getOwnPropertyDescriptor} = require('./object.js');
 const {ownKeys} = require('./reflect.js');
-const {secure} = require('./secure.js');
-
-const {Map, WeakMap} = secure(globalThis);
+const {Map, WeakMap} = require('./globals.js');
 
 const id = Symbol('extender');
 

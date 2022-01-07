@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, crumbs, extender, own, secure} = require('../cjs');
+const {accessor, applier, bound, bread, chain, crumbs, extender, own, secure} = require('../cjs');
 
 const {assert} = bound(console);
 
@@ -142,3 +142,22 @@ assert($Array.name === 'Array');
 assert(arr instanceof $Array);
 assert(arr.slice(0) instanceof $Array);
 assert(hasOwnProperty($Array.prototype, [Symbol.iterator]));
+
+const ChainedArray = chain(Array);
+const ca = ChainedArray([]);
+assert(ca.push(1) === ca.length);
+ca.length = 0;
+
+const ChainedObject = chain({
+  _: '',
+  get getter() {
+    return this._;
+  },
+  set setter(value) {
+    this._ = value;
+  }
+});
+
+const co = ChainedObject({});
+co.setter = 'OK';
+assert(co.getter === 'OK');

@@ -3,9 +3,7 @@ import {bind, call} from './function.js';
 import {includes} from './array.js';
 import {getOwnPropertyDescriptor} from './object.js';
 import {ownKeys} from './reflect.js';
-import {secure} from './secure.js';
-
-const {Map, WeakMap} = secure(globalThis);
+import {Map, WeakMap} from './globals.js';
 
 const id = Symbol('extender');
 
