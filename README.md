@@ -175,9 +175,9 @@ const Magic = extender({
 const source = {};
 const target = Magic(source);
 
-magic.isMagic;    // true
-magic.magic;      // true
-magic.hasMagic(); // true
+target.isMagic;     // true
+target.magic;       // true
+target.hasMagic();  // true
 ```
 
 
