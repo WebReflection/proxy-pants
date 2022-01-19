@@ -1,4 +1,5 @@
 const {accessor, applier, bound, bread, chain, crumbs, extender, own, secure} = require('../cjs');
+const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
 
@@ -171,3 +172,5 @@ assert(co.getter === 'OK');
 assert(co.method() == so);
 proto.method = function () { return null; };
 assert(co.method() == so);
+
+assert(fnProxy(JSON.parse, function () { return this; }).call(JSON) === JSON);

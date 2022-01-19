@@ -24,3 +24,8 @@ const callerHandler = {
 };
 const caller = target => new Proxy(target, callerHandler);
 exports.caller = caller;
+
+const proxy = (source, target) => new Proxy(source, {
+  apply: (_, self, args) => apply(target, self, args)
+});
+exports.proxy = proxy;

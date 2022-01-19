@@ -20,7 +20,7 @@
   "license": "ISC",
   "devDependencies": {
     "ascjs": "^5.0.1",
-    "c8": "^7.10.0"
+    "c8": "^7.11.0"
   },
   "module": "./esm/index.js",
   "type": "module",
@@ -52,6 +52,10 @@
     "./function": {
       "import": "./esm/function.js",
       "default": "./cjs/function.js"
+    },
+    "./object": {
+      "import": "./esm/object.js",
+      "default": "./cjs/object.js"
     },
     "./own": {
       "import": "./esm/own.js",

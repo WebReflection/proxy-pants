@@ -18,3 +18,7 @@ const callerHandler = {
   }
 };
 export const caller = target => new Proxy(target, callerHandler);
+
+export const proxy = (source, target) => new Proxy(source, {
+  apply: (_, self, args) => apply(target, self, args)
+});
