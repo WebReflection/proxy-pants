@@ -136,6 +136,14 @@ const {inherited, prop} = own(created);
 assert(!inherited);
 assert(prop);
 
+let initInvoked = false;
+extender({
+  init() {
+    initInvoked = !initInvoked;
+  }
+})({});
+assert(initInvoked);
+
 
 const {Array: $Array} = secure(global);
 const arr = $Array.from([1, 2, 3]);

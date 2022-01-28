@@ -8,10 +8,13 @@ import {Map, WeakMap} from './globals.js';
 const id = Symbol('extender');
 
 export const extender = proto => {
-  const overrides = new Map;
   const keys = ownKeys(proto);
+  const overrides = new Map;
+  const {init} = proto;
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
+    if (key === 'init')
+      continue;
     const wm = new WeakMap;
     const descriptor = getOwnPropertyDescriptor(proto, key);
     if (includes(ownKeys(descriptor), 'value')) {
@@ -68,8 +71,12 @@ export const extender = proto => {
   const known = new WeakMap;
   return function (target) {
     const wrap = target[id] || target;
-    if (!known.has(wrap))
-      known.set(wrap, new Proxy(wrap, handler));
+    if (!known.has(wrap)) {
+      const proxy = new Proxy(wrap, handler);
+      known.set(wrap, proxy);
+      if (init)
+        call(init, target);
+    }
     return known.get(wrap);
   };
 };

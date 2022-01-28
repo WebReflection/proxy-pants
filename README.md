@@ -165,12 +165,21 @@ const Magic = extender({
     return Magic(this).isMagic;
   },
 
-  // methods are always same bound method reference
+  // methods are always same bound method reference (except init)
   hasMagic() {
     // this === source
-    return Magic(this).magic;
+    return $(this).magic;
+  },
+
+  // a special method that helps setting up any reference once
+  // bear in mind Magic(ref).init() won't be defined as own method
+  init() {
+    // this is implicitly invoked only the first time Magic(this) is used
   }
 });
+
+// it can be simplified per module as ...
+const $ = Magic;
 
 const source = {};
 const target = Magic(source);
