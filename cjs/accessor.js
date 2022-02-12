@@ -21,5 +21,6 @@ const handler = {
   }
 };
 
+/** @type {<T>(t:T)=>t} A Proxy for a target with automatic bound accessors. */
 const accessor = target => new Proxy(target, handler);
 exports.accessor = accessor;

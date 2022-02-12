@@ -48,6 +48,7 @@ const chain = source => {
       return true;
     }
   };
+  /** @type {<T>(t:T)=>t} A Proxy for a target with secured accessors or bound methods */
   return target => new Proxy(target, handler);
 };
 exports.chain = chain;

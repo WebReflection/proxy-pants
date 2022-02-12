@@ -14,6 +14,8 @@ const applierHandler = {
     return bind(a, target[name]);
   }
 };
+
+/** @type {<T>(t:T)=>t} A Proxy for a target with secured appliers */
 const applier = target => new Proxy(target, applierHandler);
 exports.applier = applier;
 
@@ -22,9 +24,12 @@ const callerHandler = {
     return bind(c, target[name]);
   }
 };
+
+/** @type {<T>(t:T)=>t} A Proxy for a target with secured callers */
 const caller = target => new Proxy(target, callerHandler);
 exports.caller = caller;
 
+/** @type {<T>(s:T,t:function)=>s} A Proxy for a source to invoke through a target */
 const proxy = (source, target) => new Proxy(source, {
   apply: (_, self, args) => apply(target, self, args)
 });

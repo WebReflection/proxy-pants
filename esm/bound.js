@@ -6,4 +6,6 @@ const handler = {
     return bind(target[name], target);
   }
 };
+
+/** @type {<T>(t:T)=>t} A Proxy for a target with automatic bound methods. */
 export const bound = target => new Proxy(target, handler);
