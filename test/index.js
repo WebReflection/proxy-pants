@@ -182,3 +182,5 @@ proto.method = function () { return null; };
 assert(co.method() == so);
 
 assert(fnProxy(JSON.parse, function () { return this; }).call(JSON) === JSON);
+
+require('./extender.js');
