@@ -224,5 +224,5 @@ const {
 // both instances now can be used without
 // possible issues down the prototypal chain
 const map = new Map;
-const wm = new WekMap;
+const wm = new WeakMap;
 ```
