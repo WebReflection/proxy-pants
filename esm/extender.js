@@ -74,8 +74,7 @@ export const extender = proto => {
   return function (target) {
     const wrap = target[id] || target;
     if (!known.has(wrap)) {
-      const proxy = new Proxy(wrap, handler);
-      known.set(wrap, proxy);
+      known.set(wrap, new Proxy(wrap, handler));
       if (init)
         call(init, wrap);
     }

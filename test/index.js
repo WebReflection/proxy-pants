@@ -138,12 +138,15 @@ assert(prop);
 
 let initInvoked = false;
 let initContext = null;
-extender({
+const OneOff = extender({
   init() {
     initInvoked = !initInvoked;
     initContext = this;
-  }
-})(Object.prototype);
+    assert(OneOff(this).test === 'OK', 'extender works on init too');
+  },
+  get test() { return 'OK'; }
+});
+OneOff(Object.prototype);
 assert(initInvoked);
 assert(initContext === Object.prototype, 'context should be preserved on init');
 
