@@ -71,7 +71,6 @@ const extender = proto => {
 
   const known = new WeakMap;
 
-  
   /** @type {<T>(t:T)=>t} A Proxy for a target that extends the proto */
   return function (target) {
     const wrap = target[id] || target;
@@ -79,7 +78,7 @@ const extender = proto => {
       const proxy = new Proxy(wrap, handler);
       known.set(wrap, proxy);
       if (init)
-        call(init, target);
+        call(init, wrap);
     }
     return known.get(wrap);
   };

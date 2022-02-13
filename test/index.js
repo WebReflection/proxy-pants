@@ -137,12 +137,15 @@ assert(!inherited);
 assert(prop);
 
 let initInvoked = false;
+let initContext = null;
 extender({
   init() {
     initInvoked = !initInvoked;
+    initContext = this;
   }
-})({});
+})(Object.prototype);
 assert(initInvoked);
+assert(initContext === Object.prototype, 'context should be preserved on init');
 
 
 const {Array: $Array} = secure(global);

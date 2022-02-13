@@ -77,7 +77,7 @@ export const extender = proto => {
       const proxy = new Proxy(wrap, handler);
       known.set(wrap, proxy);
       if (init)
-        call(init, target);
+        call(init, wrap);
     }
     return known.get(wrap);
   };
