@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="module">
-import {accessor, bound, caller, applier, bread, crumbs} from '../esm/index.js';
+import {accessor, bound, caller, extender, applier, bread, crumbs} from '../esm/index.js';
 
 
 
@@ -99,6 +99,63 @@ new facade.Class;       // [object Namespace]
 facade.test = 'ok';
 facade.test;            // ok
 delete facade.test;     // true
+
+
+// example: create a ClickCounter extender utility
+const $ = extender({
+  // these are reflected per each extended reference
+  // but *not* exposed directly through such reference
+  _clicks: 0,
+
+  // if present, it's executed once per extended reference
+  init() {
+    this.addEventListener('click', increment, true);
+    // note: this happens before bubbling ->  ^^^^
+  },
+
+  // reflected per each extended reference as getter
+  get clicks() {
+    // The `this` context is *always* the extended reference,
+    // not the proxy that is currently augmenting/extending it.
+    // Accordingly, to reach extender methods, properties, or accessors,
+    // pass through $(this).
+    return $(this)._clicks;
+  }
+});
+
+const increment = ({currentTarget}) => {
+  $(currentTarget)._clicks++;
+};
+
+// export default $; OR export {$ as ClickCounter}; OR ...
+const ClickCounter = $;
+
+// example: how to use the ClickCounter augmentor/extender
+const appendButtonWithCounter = () => {
+  const button = document.body.appendChild(
+    document.createElement('button')
+  );
+
+  // init the button
+  ClickCounter(button);
+
+  // add click listener on bubbling phase
+  button.addEventListener('click', clickHandler, false);
+
+  // trigger first render
+  clickHandler({currentTarget: button});
+};
+
+const clickHandler = ({currentTarget}) => {
+  const {clicks} = ClickCounter(currentTarget);
+  currentTarget.textContent = `Clicks: ${clicks}`;
+};
+
+// create as many button counter as you like
+appendButtonWithCounter();
+appendButtonWithCounter();
+appendButtonWithCounter();
+
   </script>
 </head>
 <body>
