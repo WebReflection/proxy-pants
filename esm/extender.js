@@ -7,6 +7,13 @@ import {Map, WeakMap} from './globals.js';
 
 const id = Symbol('extender');
 
+/**
+ * Extend any object through weakly referenced, isolated, self-contained,
+ * behaviors.
+ * @template {object} P The prototype reference used to augment the target.
+ * @param {P} proto The prototype reference used to augment the target.
+ * @returns {<T>(target:T) => T & P} A function able to augment/extend once any target.
+ */
 export const extender = proto => {
   const keys = ownKeys(proto);
   const overrides = new Map;
@@ -70,7 +77,6 @@ export const extender = proto => {
 
   const known = new WeakMap;
 
-  /** @type {<T>(t:T)=>t} A Proxy for a target that extends the proto */
   return function (target) {
     const wrap = target[id] || target;
     if (!known.has(wrap)) {
@@ -81,3 +87,8 @@ export const extender = proto => {
     return known.get(wrap);
   };
 };
+
+// const source = {noMagic() {}};
+// const Magic = extender(source);
+// const proxy = Magic({yesMagic(){}});
+// proxy. // <-- should hint both no/yesMagic(){}

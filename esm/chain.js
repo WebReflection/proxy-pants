@@ -21,6 +21,13 @@ const descriptors = target => {
   return apply(assign, null, chain);
 };
 
+/**
+ * Trap once all inherited descriptors down the prototypal chain and
+ * automatically ensure the right accessor or method is used through
+ * a Proxy returned when the resulting callback is invoked with a target.
+ * @param {object|function} source 
+ * @returns {<T>(target:T) => target}
+ */
 export const chain = source => {
   const target = typeof source === 'function' ? source.prototype : source;
   const chained = descriptors(target);
@@ -47,6 +54,5 @@ export const chain = source => {
       return true;
     }
   };
-  /** @type {<T>(t:T)=>t} A Proxy for a target with secured accessors or bound methods */
   return target => new Proxy(target, handler);
 };

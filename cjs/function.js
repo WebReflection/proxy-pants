@@ -15,7 +15,7 @@ const applierHandler = {
   }
 };
 
-/** @type {<T>(t:T)=>t} A Proxy for a target with secured appliers */
+/** @type {<T>(target:T) => target} A Proxy for a target with secured appliers */
 const applier = target => new Proxy(target, applierHandler);
 exports.applier = applier;
 
@@ -25,7 +25,7 @@ const callerHandler = {
   }
 };
 
-/** @type {<T>(t:T)=>t} A Proxy for a target with secured callers */
+/** @type {<T>(target:T) => target} A Proxy for a target with secured callers */
 const caller = target => new Proxy(target, callerHandler);
 exports.caller = caller;
 

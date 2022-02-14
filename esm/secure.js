@@ -24,5 +24,5 @@ const handler = {
   }
 };
 
-/** @type {<T>(t:T)=>t} A Proxy for a target to secure */
+/** @type {<T>(target:T) => target} A Proxy for a target to secure */
 export const secure = target => new Proxy(target, handler);
