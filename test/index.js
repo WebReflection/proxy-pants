@@ -217,10 +217,17 @@ const target = {
   }
 };
 
-const {ngset} = dsm(target);
+const {ngset, hasAttribute} = dsm(target);
+assert(hasAttribute === target.hasAttribute);
+assert(ngset === dsm(target).ngset);
+assert(Reflect.ownKeys(ngset).length === 0);
 assert(!target.hasAttribute('ng-test-name'));
 assert(!('testName' in ngset));
+assert(ngset.testName === void 0);
 ngset.testName = '123';
+assert(ngset.testName === '123');
+assert(Reflect.ownKeys(ngset).length === 1);
+assert(Reflect.ownKeys(ngset).join('') === 'testName');
 assert('testName' in ngset);
 assert(target.attributes.size === 1);
 assert(target.hasAttribute('ng-test-name'));

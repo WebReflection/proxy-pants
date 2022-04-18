@@ -6,7 +6,7 @@
   "scripts": {
     "bench": "node test/benchmark.js",
     "build": "npm run cjs && npm run test && npm run tsc",
-    "cjs": "ascjs esm cjs",
+    "cjs": "ascjs --no-default esm cjs",
     "test": "c8 node test/index.js",
     "tsc": "tsc -p .",
     "coverage": "mkdir -p ./coverage; c8 report --reporter=text-lcov > ./coverage/lcov.info"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "ascjs": "^5.0.1",
     "c8": "^7.11.0",
-    "typescript": "^4.5.5"
+    "typescript": "^4.6.3"
   },
   "module": "./esm/index.js",
   "type": "module",
@@ -81,8 +81,5 @@
   "bugs": {
     "url": "https://github.com/WebReflection/proxy-pants/issues"
   },
-  "homepage": "https://github.com/WebReflection/proxy-pants#readme",
-  "dependencies": {
-    "hyphenizer": "^0.1.1"
-  }
+  "homepage": "https://github.com/WebReflection/proxy-pants#readme"
 }

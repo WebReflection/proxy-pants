@@ -11,7 +11,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
   * **[chain](#chain)** to trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method
-  * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured.
+  * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured and namespaces do not provide `ownKeys` trap due inability to reverse some `dash-case` to `camelCase`.
   * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
     * **methods** are always the same bound reference
     * **properties** are defined per extender and never directly attached to the source

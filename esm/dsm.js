@@ -1,5 +1,7 @@
-// This utility is not insecured (yet?)
-import hyphenizer from 'hyphenizer';
+// This utility is not secured (yet?)
+
+const toHyphen = name => name.replace(/[A-Z]/g, $ => ('-' + $.toLowerCase()));
+const fromHyphen = name => name.replace(/-(.)/g, (_, $) => $.toUpperCase());
 
 const dsmRef = new WeakMap;
 
@@ -8,23 +10,33 @@ class DOMStringMap {
     this.prefix = prefix;
   }
   deleteProperty(target, key) {
-    key = this.prefix + hyphenizer(key);
+    key = this.prefix + toHyphen(key);
     target.removeAttribute(key);
     return true;
   }
   get(target, key) {
-    key = this.prefix + hyphenizer(key);
+    key = this.prefix + toHyphen(key);
     for (const {name, value} of target.attributes) {
       if (name === key)
         return value;
     }
   }
   has(target, key) {
-    key = this.prefix + hyphenizer(key);
+    key = this.prefix + toHyphen(key);
     return target.hasAttribute(key);
   }
+  ownKeys(target) {
+    const {prefix} = this;
+    const {length} = prefix;
+    const keys = [];
+    for (const {name} of target.attributes) {
+      if (name.startsWith(this.prefix))
+        keys.push(fromHyphen(name.slice(length)));
+    }
+    return keys;
+  }
   set(target, key, value) {
-    key = this.prefix + hyphenizer(key);
+    key = this.prefix + toHyphen(key);
     target.setAttribute(key, value);
   }
 }
