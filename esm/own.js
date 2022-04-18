@@ -1,3 +1,4 @@
+import {Proxy} from './proxy.js';
 import {includes} from './array.js';
 import {ownKeys} from './reflect.js';
 

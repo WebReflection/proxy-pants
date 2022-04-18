@@ -4,5 +4,6 @@ export {bound} from './bound.js';
 export {bread, crumbs} from './breadcrumbs.js';
 export {chain} from './chain.js';
 export {extender} from './extender.js';
+export {dsm} from './dsm.js';
 export {own} from './own.js';
 export {secure} from './secure.js';

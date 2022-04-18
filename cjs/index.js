@@ -20,6 +20,9 @@
   exports.extender = m.extender;
 })(require('./extender.js'));
 (m => {
+  exports.dsm = m.dsm;
+})(require('./dsm.js'));
+(m => {
   exports.own = m.own;
 })(require('./own.js'));
 (m => {

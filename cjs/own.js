@@ -1,4 +1,5 @@
 'use strict';
+const {Proxy} = require('./proxy.js');
 const {includes} = require('./array.js');
 const {ownKeys} = require('./reflect.js');
 

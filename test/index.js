@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, chain, crumbs, extender, own, secure} = require('../cjs');
+const {accessor, applier, bound, bread, chain, crumbs, dsm, extender, own, secure} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -188,5 +188,45 @@ proto.method = function () { return null; };
 assert(co.method() == so);
 
 assert(fnProxy(JSON.parse, function () { return this; }).call(JSON) === JSON);
+
+const target = {
+  attributes: new Set,
+  hasAttribute(key) {
+    for (const {name} of this.attributes) {
+      if (name === key)
+        return true;
+    }
+    return false;
+  },
+  getAttribute(key) {
+    for (const {name, value} of this.attributes) {
+      if (name === key)
+        return value;
+    }
+  },
+  setAttribute(name, value) {
+    this.attributes.add({name, value});
+  },
+  removeAttribute(name) {
+    for (const attribute of this.attributes) {
+      if (attribute.name === name) {
+        this.attributes.delete(attribute);
+        break;
+      }
+    }
+  }
+};
+
+const {ngset} = dsm(target);
+assert(!target.hasAttribute('ng-test-name'));
+assert(!('testName' in ngset));
+ngset.testName = '123';
+assert('testName' in ngset);
+assert(target.attributes.size === 1);
+assert(target.hasAttribute('ng-test-name'));
+assert(target.getAttribute('ng-test-name'));
+delete ngset.testName;
+assert(!target.hasAttribute('ng-test-name'));
+assert(target.getAttribute('ng-test-name') === void 0);
 
 require('./extender.js');

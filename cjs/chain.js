@@ -1,4 +1,5 @@
 'use strict';
+const {Proxy} = require('./proxy.js');
 const {apply, bind, call} = require('./function.js');
 const {assign, getOwnPropertyDescriptors, getPrototypeOf} = require('./object.js');
 const {unshift} = require('./array.js');

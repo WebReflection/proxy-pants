@@ -1,3 +1,4 @@
+import {Proxy} from './proxy.js';
 import {apply, bind, call} from './function.js';
 import {assign, getOwnPropertyDescriptors, getPrototypeOf} from './object.js';
 import {unshift} from './array.js';

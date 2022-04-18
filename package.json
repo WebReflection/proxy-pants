@@ -48,6 +48,10 @@
       "import": "./esm/chain.js",
       "default": "./cjs/chain.js"
     },
+    "./dsm": {
+      "import": "./esm/dsm.js",
+      "default": "./cjs/dsm.js"
+    },
     "./extender": {
       "import": "./esm/extender.js",
       "default": "./cjs/extender.js"
@@ -77,5 +81,8 @@
   "bugs": {
     "url": "https://github.com/WebReflection/proxy-pants/issues"
   },
-  "homepage": "https://github.com/WebReflection/proxy-pants#readme"
+  "homepage": "https://github.com/WebReflection/proxy-pants#readme",
+  "dependencies": {
+    "hyphenizer": "^0.1.1"
+  }
 }

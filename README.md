@@ -11,6 +11,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
   * **[chain](#chain)** to trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method
+  * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured.
   * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
     * **methods** are always the same bound reference
     * **properties** are defined per extender and never directly attached to the source
@@ -145,6 +146,26 @@ const asElement = chain(Element);
 
 asNode(document.createTextNode('accessor')).data;
 asElement(document.body).querySelector('method');
+```
+
+
+
+### dsm
+
+```js
+// import {dsm} from 'proxy-pants/dsm';
+import {dsm} from 'proxy-pants';
+
+const {ngset: ng, vset: v} = dsm(element);
+
+// set ng-value attribute
+ng.value = 123;
+
+// remove ng-some-thing attribute
+delete ng.someThing;
+
+// logs v-if attribute, if any
+console.log(v.if);
 ```
 
 
