@@ -11,7 +11,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
   * **[chain](#chain)** to trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method
-  * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured.
+  * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured
   * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
     * **methods** are always the same bound reference
     * **properties** are defined per extender and never directly attached to the source
@@ -23,6 +23,8 @@ Secured and reliable Proxy based utilities for more or less common tasks:
 
 
 ### accessor
+
+Trap one or more accessors for any object.
 
 ```js
 // import {accessor} from 'proxy-pants/accessor';
@@ -40,6 +42,8 @@ textContent('proxy pants!');
 
 
 ### applier & caller
+
+Trap any borrowed callback/utility without needing to use `.call` or `.apply` to pass the context.
 
 ```js
 // import {applier, caller} from 'proxy-pants/function';
@@ -64,6 +68,8 @@ charCodes(60, 61, 62);
 
 ### bound
 
+Bind one or more methods all at once.
+
 ```js
 // import {bound} from 'proxy-pants/bound';
 import {bound} from 'proxy-pants';
@@ -87,6 +93,8 @@ get('some');
 
 
 ### bread & crumbs
+
+Track operations through paths (i.e. `a.b.c.d`) and namespaces.
 
 ```js
 // import {bread, crumbs} from 'proxy-pants/breadcrumbs';
@@ -137,6 +145,8 @@ delete facade.test;     // true
 
 ### chain
 
+Trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method.
+
 ```js
 // import {chain} from 'proxy-pants/chain';
 import {chain} from 'proxy-pants';
@@ -151,6 +161,8 @@ asElement(document.body).querySelector('method');
 
 
 ### dsm
+
+Virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element.
 
 ```js
 // import {dsm} from 'proxy-pants/dsm';
@@ -171,6 +183,13 @@ console.log(v.if);
 
 
 ### extender
+
+Extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
+
+  * **methods** are always the same bound reference
+  * **properties** are defined per extender and never directly attached to the source
+  * **accessors** are also defined per each extender
+  * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
 
 ```js
 // import {extender} from 'proxy-pants/extender';
@@ -214,6 +233,8 @@ target.hasMagic();  // true
 
 ### own
 
+Destructure only own properties.
+
 ```js
 // import {own} from 'proxy-pants/own';
 import {own} from 'proxy-pants';
@@ -232,6 +253,8 @@ console.assert(prop);
 
 
 ### secure
+
+Ensure local classes cannot be patched at runtime down their prototypal chain.
 
 ```js
 // import {secure} from 'proxy-pants/secure';
