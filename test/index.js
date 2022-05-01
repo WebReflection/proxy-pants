@@ -236,4 +236,8 @@ delete ngset.testName;
 assert(!target.hasAttribute('ng-test-name'));
 assert(target.getAttribute('ng-test-name') === void 0);
 
+const {fromCharCode} = applier(String);
+const charCodes = (...args) => fromCharCode(args);
+assert('<=>' === charCodes(60, 61, 62));
+
 require('./extender.js');

@@ -55,7 +55,7 @@ toString(null);
 
 const {fromCharCode} = applier(String);
 
-const charCodes = (...args) => fromCharCode(String, args);
+const charCodes = (...args) => fromCharCode(args);
 // <=>
 charCodes(60, 61, 62);
 ```
