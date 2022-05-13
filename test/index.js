@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, chain, crumbs, dsm, extender, own, secure} = require('../cjs');
+const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, own, secure} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -236,8 +236,15 @@ delete ngset.testName;
 assert(!target.hasAttribute('ng-test-name'));
 assert(target.getAttribute('ng-test-name') === void 0);
 
+const cached = cache(() => Math.random());
+assert(typeof cached.any === 'number');
+assert(cached.any === cached.any);
+assert('any' in cached);
+assert(delete cached.any);
+assert(!('any' in cached));
+
 const {fromCharCode} = applier(String);
-const charCodes = (...args) => fromCharCode(args);
+const charCodes = (...args) => fromCharCode(null, args);
 assert('<=>' === charCodes(60, 61, 62));
 
 require('./extender.js');

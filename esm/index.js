@@ -2,6 +2,7 @@ export {accessor} from './accessor.js';
 export {applier, caller} from './function.js';
 export {bound} from './bound.js';
 export {bread, crumbs} from './breadcrumbs.js';
+export {cache} from './cache.js';
 export {chain} from './chain.js';
 export {extender} from './extender.js';
 export {dsm} from './dsm.js';

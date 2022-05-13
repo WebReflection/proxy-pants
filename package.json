@@ -21,8 +21,8 @@
   "license": "ISC",
   "devDependencies": {
     "ascjs": "^5.0.1",
-    "c8": "^7.11.0",
-    "typescript": "^4.6.3"
+    "c8": "^7.11.2",
+    "typescript": "^4.6.4"
   },
   "module": "./esm/index.js",
   "type": "module",
@@ -43,6 +43,10 @@
     "./breadcrumbs": {
       "import": "./esm/breadcrumbs.js",
       "default": "./cjs/breadcrumbs.js"
+    },
+    "./cache": {
+      "import": "./esm/cache.js",
+      "default": "./cjs/cache.js"
     },
     "./chain": {
       "import": "./esm/chain.js",

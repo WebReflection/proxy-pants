@@ -2,7 +2,7 @@
 
 [![build status](https://github.com/WebReflection/proxy-pants/actions/workflows/node.js.yml/badge.svg)](https://github.com/WebReflection/proxy-pants/actions) [![Coverage Status](https://coveralls.io/repos/github/WebReflection/proxy-pants/badge.svg?branch=main)](https://coveralls.io/github/WebReflection/proxy-pants?branch=main) [![CSP strict](https://webreflection.github.io/csp/strict.svg)](https://webreflection.github.io/csp/#-csp-strict)
 
-<sup>**Social Media Photo by [lan deng](https://unsplash.com/@landall) on [Unsplash](https://unsplash.com/)**</sup>  
+<sup>**Social Media Photo by [lan deng](https://unsplash.com/@landall) on [Unsplash](https://unsplash.com/)**</sup>
 
 Secured and reliable Proxy based utilities for more or less common tasks:
 
@@ -10,6 +10,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[applier & caller](#applier--caller)** to trap any borrowed callback/utility without needing to use `.call` or `.apply` to pass the context
   * **[bound](#bound)** to bind one or more methods all at once
   * **[bread & crumbs](#bread--crumbs)** to track operations through paths (i.e. `a.b.c.d`) and namespaces
+  * **[cache](#cache)** to compute once any accessed property through a proxied, and secured, map
   * **[chain](#chain)** to trap once all inherited descriptors down the prototypal chain and automatically ensure the right accessor or method
   * **[dsm](#dsm)** to virtually trap `dataset` / `*set` accessors as *DOMStringMap* like references per each element. Please note this utility is not secured
   * **[extender](#extender)** to extend any object through weakly referenced behaviors, providing a new way to deal with state machines too, through the following features:
@@ -59,7 +60,7 @@ toString(null);
 
 const {fromCharCode} = applier(String);
 
-const charCodes = (...args) => fromCharCode(args);
+const charCodes = (...args) => fromCharCode(null, args);
 // <=>
 charCodes(60, 61, 62);
 ```
@@ -139,6 +140,26 @@ new facade.Class;       // [object Namespace]
 facade.test = 'ok';
 facade.test;            // ok
 delete facade.test;     // true
+```
+
+
+
+### cache
+
+A secured `Map` wrapper to retrieve any *property* once, through the given callback.
+
+```js
+// import {cache} from 'proxy-pants/cache';
+import {cache} from 'proxy-pants';
+
+const uids = cache((name) => (name + Math.random()));
+
+uids.a;             // "a0.23456787654"
+uids.b;             // "b0.87654334567"
+uids.a === uids.a;  // true
+'a' in uids;        // true
+delete uids.a;      // true
+'a' in uids;        // false
 ```
 
 

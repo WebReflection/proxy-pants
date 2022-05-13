@@ -1,5 +1,6 @@
 export { accessor } from "./accessor.js";
 export { bound } from "./bound.js";
+export { cache } from "./cache.js";
 export { chain } from "./chain.js";
 export { extender } from "./extender.js";
 export { dsm } from "./dsm.js";
