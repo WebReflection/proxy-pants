@@ -298,3 +298,18 @@ const wm = new WeakMap;
 ### weak-cache
 
 A secured [WeakValue](https://github.com/WebReflection/weak-value#readme) wrapper to retrieve any *property* once, through the given callback, and reteain the result weakly.
+
+```js
+// import {wcache} from 'proxy-pants/wcache';
+import {wcache} from 'proxy-pants';
+
+// the value has to be an object/reference
+const uids = wcache((name) => new String((name + Math.random())));
+
+uids.a;             // new String("a0.23456787654")
+uids.b;             // new String("b0.87654334567")
+uids.a === uids.a;  // true
+'a' in uids;        // true
+delete uids.a;      // true
+'a' in uids;        // false
+```
