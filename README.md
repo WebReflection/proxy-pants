@@ -20,6 +20,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
     * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
   * **[own](#own)** to destructure only own properties
   * **[secure](#secure)** to ensure local classes cannot be patched at runtime down their prototypal chain
+  * **[weak-cache](#weak-cache)** same as [cache](#cache) but the returned reference is weakly retained
 
 
 
@@ -291,3 +292,9 @@ const {
 const map = new Map;
 const wm = new WeakMap;
 ```
+
+
+
+### weak-cache
+
+A secured [WeakValue](https://github.com/WebReflection/weak-value#readme) wrapper to retrieve any *property* once, through the given callback, and reteain the result weakly.

@@ -76,6 +76,10 @@
       "import": "./esm/secure.js",
       "default": "./cjs/secure.js"
     },
+    "./wcache": {
+      "import": "./esm/weak-cache.js",
+      "default": "./cjs/weak-cache.js"
+    },
     "./package.json": "./package.json"
   },
   "repository": {

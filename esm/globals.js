@@ -1,4 +1,15 @@
 import {secure} from './secure.js';
 
-const {Map, WeakMap} = secure(globalThis);
-export {Map, WeakMap};
+const {
+  FinalizationRegistry,
+  Map,
+  WeakMap,
+  WeakRef
+} = secure(globalThis);
+
+export {
+  FinalizationRegistry,
+  Map,
+  WeakMap,
+  WeakRef
+};

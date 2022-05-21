@@ -1,4 +1,4 @@
-const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, own, secure} = require('../cjs');
+const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, own, secure, wcache} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -242,6 +242,13 @@ assert(cached.any === cached.any);
 assert('any' in cached);
 assert(delete cached.any);
 assert(!('any' in cached));
+
+const wcached = wcache(() => new Number(Math.random()));
+assert(typeof wcached.any === 'object');
+assert(wcached.any === wcached.any);
+assert('any' in wcached);
+assert(delete wcached.any);
+assert(!('any' in wcached));
 
 const {fromCharCode} = applier(String);
 const charCodes = (...args) => fromCharCode(null, args);

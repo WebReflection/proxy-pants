@@ -17,6 +17,9 @@
   exports.cache = m.cache;
 })(require('./cache.js'));
 (m => {
+  exports.wcache = m.wcache;
+})(require('./weak-cache.js'));
+(m => {
   exports.chain = m.chain;
 })(require('./chain.js'));
 (m => {

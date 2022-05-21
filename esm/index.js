@@ -3,6 +3,7 @@ export {applier, caller} from './function.js';
 export {bound} from './bound.js';
 export {bread, crumbs} from './breadcrumbs.js';
 export {cache} from './cache.js';
+export {wcache} from './weak-cache.js';
 export {chain} from './chain.js';
 export {extender} from './extender.js';
 export {dsm} from './dsm.js';

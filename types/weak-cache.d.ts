@@ -4,4 +4,4 @@
  * @param {(property:string|symbol) => any} get a callback invoked once to set the value.
  * @returns {Proxy<object>} a cache for every accessed property.
  */
-export const cache: (get: any) => any;
+export const wcache: (get: any) => any;
