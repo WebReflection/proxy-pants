@@ -1,4 +1,3 @@
-export const FinalizationRegistry: FinalizationRegistryConstructor;
+export const globals: typeof globalThis;
 export const Map: MapConstructor;
 export const WeakMap: WeakMapConstructor;
-export const WeakRef: WeakRefConstructor;

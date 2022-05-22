@@ -1,14 +1,13 @@
 'use strict';
 const {secure} = require('./secure.js');
 
-const {
-  FinalizationRegistry,
-  Map,
-  WeakMap,
-  WeakRef
-} = secure(globalThis);
+const globals = secure(globalThis);
+exports.globals = globals;
 
-exports.FinalizationRegistry = FinalizationRegistry;
+const {
+  Map,
+  WeakMap
+} = globals;
+
 exports.Map = Map;
 exports.WeakMap = WeakMap;
-exports.WeakRef = WeakRef;

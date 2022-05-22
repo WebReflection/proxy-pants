@@ -1,6 +1,8 @@
 'use strict';
 const {cached} = require('./any-cache.js');
-const {FinalizationRegistry, Map, WeakRef} = require('./globals.js');
+const {Map, globals} = require('./globals.js');
+
+const {FinalizationRegistry, WeakRef} = globals;
 
 /**
  * A generic accessor that invokes a callback only when the accessed property

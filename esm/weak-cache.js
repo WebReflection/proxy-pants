@@ -1,5 +1,7 @@
 import {cached} from './any-cache.js';
-import {FinalizationRegistry, Map, WeakRef} from './globals.js';
+import {Map, globals} from './globals.js';
+
+const {FinalizationRegistry, WeakRef} = globals;
 
 /**
  * A generic accessor that invokes a callback only when the accessed property
