@@ -17,10 +17,8 @@ class DOMStringMap {
   }
   get(target, key) {
     key = this.prefix + toHyphen(key);
-    for (const {name, value} of target.attributes) {
-      if (name === key)
-        return value;
-    }
+    const value = target.getAttribute(key);
+    return value == null ? void 0 : value;
   }
   has(target, key) {
     key = this.prefix + toHyphen(key);
