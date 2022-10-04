@@ -27,49 +27,51 @@ export const extender = proto => {
       const {value} = descriptor;
       overrides.set(key, typeof value === 'function' ?
         target => {
-          if (!wm.has(target)) {
-            const $ = bind(value, target);
-            wm.set(target, {get: () => $});
+          let $ = wm.get(target);
+          if (!$) {
+            const bound = bind(value, target);
+            wm.set(target, $ = {get: () => bound});
           }
-          return wm.get(target);
+          return $;
         } :
         target => {
-          if (!wm.has(target)) {
-            let $ = value;
-            wm.set(target, {
-              get: () => $,
-              set: value => { $ = value; }
+          let $ = wm.get(target);
+          if (!$) {
+            let _ = value;
+            wm.set(target, $ = {
+              get: () => _,
+              set: value => { _ = value; }
             });
           }
-          return wm.get(target);
+          return $;
         }
       );
     }
     else {
       const {get, set} = descriptor;
       overrides.set(key, target => {
-        if (!wm.has(target)) {
-          wm.set(target, {
+        let $ = wm.get(target);
+        if (!$) {
+          wm.set(target, $ = {
             get: () => call(get, target),
             set: value => { call(set, target, value); }
           });
         }
-        return wm.get(target);
+        return $;
       });
     }
   }
 
   const handler = {
-    get: (target, key) => key === id ? target : (
-      overrides.has(key) ?
-        overrides.get(key)(target).get() :
-        target[key]
-    ),
+    get: (target, key) => {
+      if (key === id) return target;
+      let $ = overrides.get(key);
+      return $ ? $(target).get() : target[key];
+    },
     set: (target, key, value) => {
-      if (overrides.has(key))
-        overrides.get(key)(target).set(value);
-      else
-        target[key] = value;
+      let $ = overrides.get(key);
+      if ($) $(target).set(value);
+      else target[key] = value;
       return true;
     }
   };
@@ -78,11 +80,12 @@ export const extender = proto => {
 
   return function (target) {
     const wrap = target[id] || target;
-    if (!known.has(wrap)) {
-      known.set(wrap, new Proxy(wrap, handler));
+    let $ = known.get(wrap);
+    if (!$) {
+      known.set(wrap, $ = new Proxy(wrap, handler));
       if (init)
         call(init, wrap);
     }
-    return known.get(wrap);
+    return $;
   };
 };
