@@ -1,8 +1,7 @@
 'use strict';
 const {Proxy} = require('./proxy.js');
 const {bind, call} = require('./function.js');
-const {includes} = require('./array.js');
-const {getOwnPropertyDescriptor} = require('./object.js');
+const {getOwnPropertyDescriptor, hasOwnProperty} = require('./object.js');
 const {ownKeys} = require('./reflect.js');
 const {Map, WeakMap} = require('./globals.js');
 
@@ -25,7 +24,7 @@ const extender = proto => {
       continue;
     const wm = new WeakMap;
     const descriptor = getOwnPropertyDescriptor(proto, key);
-    if (includes(ownKeys(descriptor), 'value')) {
+    if (hasOwnProperty(descriptor, 'value')) {
       const {value} = descriptor;
       overrides.set(key, typeof value === 'function' ?
         target => {
@@ -89,8 +88,3 @@ const extender = proto => {
   };
 };
 exports.extender = extender;
-
-// const source = {noMagic() {}};
-// const Magic = extender(source);
-// const proxy = Magic({yesMagic(){}});
-// proxy. // <-- should hint both no/yesMagic(){}

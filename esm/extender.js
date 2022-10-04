@@ -1,7 +1,6 @@
 import {Proxy} from './proxy.js';
 import {bind, call} from './function.js';
-import {includes} from './array.js';
-import {getOwnPropertyDescriptor} from './object.js';
+import {getOwnPropertyDescriptor, hasOwnProperty} from './object.js';
 import {ownKeys} from './reflect.js';
 import {Map, WeakMap} from './globals.js';
 
@@ -24,7 +23,7 @@ export const extender = proto => {
       continue;
     const wm = new WeakMap;
     const descriptor = getOwnPropertyDescriptor(proto, key);
-    if (includes(ownKeys(descriptor), 'value')) {
+    if (hasOwnProperty(descriptor, 'value')) {
       const {value} = descriptor;
       overrides.set(key, typeof value === 'function' ?
         target => {
@@ -87,8 +86,3 @@ export const extender = proto => {
     return known.get(wrap);
   };
 };
-
-// const source = {noMagic() {}};
-// const Magic = extender(source);
-// const proxy = Magic({yesMagic(){}});
-// proxy. // <-- should hint both no/yesMagic(){}

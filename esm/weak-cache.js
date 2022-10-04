@@ -15,18 +15,20 @@ export const wcache = cached(class WeakValue extends Map {
     this.#registry.unregister(super.get(key));
     super.delete(key);
   };
-  #registry = new FinalizationRegistry(key => {
-    /* c8 ignore next */
-    super.delete(key);
-  });
+  #registry = new FinalizationRegistry(
+    /* c8 ignore start */
+    key => { super.delete(key); }
+    /* c8 ignore stop */
+  );
   delete(key) {
     return super.has(key) && !this.#delete(key);
   }
   has(key) {
     let has = super.has(key);
     if (has && !super.get(key).deref())
-      /* c8 ignore next */
+      /* c8 ignore start */
       has = !!this.#delete(key);
+      /* c8 ignore stop */
     return has;
   }
   get(key) {
