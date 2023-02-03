@@ -1,8 +1,8 @@
 export function fetch(input: RequestInfo | URL, ...rest: any[]): {
-    arrayBuffer?: ArrayBuffer;
-    blob?: Blob;
-    clone?: Response;
-    formData?: FormData;
-    json?: object;
-    text?: string;
+    arrayBuffer?: Promise<ArrayBuffer>;
+    blob?: Promise<Blob>;
+    clone?: Promise<Response>;
+    formData?: Promise<FormData>;
+    json?: Promise<object>;
+    text?: Promise<string>;
 };

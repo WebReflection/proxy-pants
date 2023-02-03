@@ -8,12 +8,12 @@ const {fetch: $} = globalThis;
  * @param {RequestInfo | URL} input the global `fetch` input.
  * @param  {RequestInit} [init] the optional global `fetch` options.
  * @returns {{
- *  arrayBuffer?: ArrayBuffer,
- *  blob?: Blob,
- *  clone?: Response,
- *  formData?: FormData,
- *  json?: object,
- *  text?: string
+ *  arrayBuffer?: Promise<ArrayBuffer>,
+ *  blob?: Promise<Blob>,
+ *  clone?: Promise<Response>,
+ *  formData?: Promise<FormData>,
+ *  json?: Promise<object>,
+ *  text?: Promise<string>
  * }}
  */
 export const fetch = (input, ...rest) => new Proxy($(input, ...rest), {
