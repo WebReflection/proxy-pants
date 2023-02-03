@@ -1,4 +1,10 @@
-const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, own, secure, wcache} = require('../cjs');
+const {fetch: grab} = globalThis;
+let ok = 0;
+globalThis.fetch = (...args) => Promise.resolve({
+  ok: !!(ok++), json: () => Promise.resolve(args)
+});
+
+const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, fetch, own, secure, wcache} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -254,4 +260,14 @@ const {fromCharCode} = applier(String);
 const charCodes = (...args) => fromCharCode(null, args);
 assert('<=>' === charCodes(60, 61, 62));
 
-require('./extender.js');
+
+
+fetch('a', 1).json.then(result => {
+  assert(result === void 0);
+  fetch('a', 1).json.then(result => {
+    assert(result[0] === 'a');
+    assert(result[1] === 1);
+    globalThis.fetch = grab;
+    require('./extender.js');
+  });
+});

@@ -18,6 +18,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
     * **properties** are defined per extender and never directly attached to the source
     * **accessors** are also defined per each extender
     * multiple extenders calls to the same source preserve previous state, and any source can pass through multiple extenders without ever conflicting
+  * **[fetch](#fetch)** to shortcut `fetch(url).json` and other methods as direct accessors, defaulting to `void` when the response is not *ok*
   * **[own](#own)** to destructure only own properties
   * **[secure](#secure)** to ensure local classes cannot be patched at runtime down their prototypal chain
   * **[weak-cache](#weak-cache)** same as [cache](#cache) but the returned reference is weakly retained
@@ -251,6 +252,17 @@ target.magic;       // true
 target.hasMagic();  // true
 ```
 
+
+### fetch
+
+Shortcut for `fetch(url).json` or any other *Response* method as direct accessor.
+
+```js
+import {fetch} from 'proxy-pants';
+
+const data = await fetch(restAIP).json!.data;
+const text = await fetch(page).text || '';
+```
 
 
 ### own

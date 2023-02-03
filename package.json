@@ -60,6 +60,10 @@
       "import": "./esm/extender.js",
       "default": "./cjs/extender.js"
     },
+    "./fetch": {
+      "import": "./esm/fetch.js",
+      "default": "./cjs/fetch.js"
+    },
     "./function": {
       "import": "./esm/function.js",
       "default": "./cjs/function.js"

@@ -26,6 +26,9 @@
   exports.extender = m.extender;
 })(require('./extender.js'));
 (m => {
+  exports.fetch = m.fetch;
+})(require('./fetch.js'));
+(m => {
   exports.dsm = m.dsm;
 })(require('./dsm.js'));
 (m => {
