@@ -1,6 +1,6 @@
 {
   "name": "proxy-pants",
-  "version": "0.8.8",
+  "version": "0.8.9",
   "description": "Secured and reliable Proxy based utilities for more or less common tasks",
   "main": "./cjs/index.js",
   "scripts": {
