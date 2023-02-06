@@ -4,7 +4,7 @@ globalThis.fetch = (...args) => Promise.resolve({
   ok: !!(ok++), json: () => Promise.resolve(args)
 });
 
-const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, fetch, own, secure, wcache} = require('../cjs');
+const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, fetch, own, secure, watcher, wcache} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -260,7 +260,22 @@ const {fromCharCode} = applier(String);
 const charCodes = (...args) => fromCharCode(null, args);
 assert('<=>' === charCodes(60, 61, 62));
 
-
+const watched = watcher({a: {b: {c: 123}}});
+watched.watch('d', function (prop, oldVal, newVal) {
+  assert(prop === 'd');
+  assert(oldVal === void 0);
+  assert(newVal === 123);
+  this.unwatch(prop);
+});
+watched.a.b.watch('c', function (prop, oldVal, newVal) {
+  assert(prop === 'c');
+  assert(oldVal === 123);
+  assert(newVal === 456);
+  this.unwatch(prop);
+});
+watched.d = 123;
+watched.a.b.c = 456;
+assert(watched.a.b.c === 456);
 
 fetch('a', 1).json.then(result => {
   assert(result === void 0);

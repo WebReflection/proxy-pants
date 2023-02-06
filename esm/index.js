@@ -10,3 +10,4 @@ export {fetch} from './fetch.js';
 export {dsm} from './dsm.js';
 export {own} from './own.js';
 export {secure} from './secure.js';
+export {watcher} from './watcher.js';

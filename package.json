@@ -80,6 +80,10 @@
       "import": "./esm/secure.js",
       "default": "./cjs/secure.js"
     },
+    "./watcher": {
+      "import": "./esm/watcher.js",
+      "default": "./cjs/watcher.js"
+    },
     "./wcache": {
       "import": "./esm/weak-cache.js",
       "default": "./cjs/weak-cache.js"

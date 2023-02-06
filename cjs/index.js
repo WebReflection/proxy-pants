@@ -37,3 +37,6 @@
 (m => {
   exports.secure = m.secure;
 })(require('./secure.js'));
+(m => {
+  exports.watcher = m.watcher;
+})(require('./watcher.js'));

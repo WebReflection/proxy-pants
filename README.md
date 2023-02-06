@@ -21,6 +21,7 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[fetch](#fetch)** to shortcut `fetch(url).json` and other methods as direct accessors, defaulting to `void` when the response is not *ok*
   * **[own](#own)** to destructure only own properties
   * **[secure](#secure)** to ensure local classes cannot be patched at runtime down their prototypal chain
+  * **[watcher](#watcher)** the good old [Object.prototype.watch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/watch.html) and [unwatch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/unwatch.html) methods to simplify selective reactive state handling.
   * **[weak-cache](#weak-cache)** same as [cache](#cache) but the returned reference is weakly retained
 
 
@@ -303,6 +304,29 @@ const {
 // possible issues down the prototypal chain
 const map = new Map;
 const wm = new WeakMap;
+```
+
+
+### watcher
+
+The good old [Object.prototype.watch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/watch.html) and [unwatch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/unwatch.html) methods to simplify selective reactive state handling.
+
+```js
+
+// import {watcher} from 'proxy-pants/watcher';
+import {watcher} from 'proxy-pants';
+
+const watched = watcher({a: {b: 1}});
+watched.watch('c', function (prop, oldVal, newVal) {
+  prop;     // 'c'
+  oldVal;   // undefined
+  newVal;   // 2
+  this.unwatch(prop); // this is the proxied target
+});
+watched.c = 2;
+
+watched.a.watch('b', console.log);
+watched.a.b = 3;  // will log
 ```
 
 
