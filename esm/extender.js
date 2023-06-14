@@ -11,7 +11,7 @@ const id = Symbol('extender');
  * behaviors.
  * @template {object} P The prototype reference used to augment the target.
  * @param {P} proto The prototype reference used to augment the target.
- * @returns {<T>(target:T) => T & P} A function able to augment/extend once any target.
+ * @returns {{<T>(target: T): T & P; extends(target: unknown): boolean;}} A function able to augment/extend once any target.
  */
 export const extender = proto => {
   const keys = ownKeys(proto);
