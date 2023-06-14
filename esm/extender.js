@@ -1,6 +1,6 @@
 import {Proxy} from './proxy.js';
 import {bind, call} from './function.js';
-import {getOwnPropertyDescriptor, hasOwnProperty} from './object.js';
+import {assign, getOwnPropertyDescriptor, hasOwnProperty} from './object.js';
 import {ownKeys} from './reflect.js';
 import {Map, WeakMap} from './globals.js';
 
@@ -78,14 +78,17 @@ export const extender = proto => {
 
   const known = new WeakMap;
 
-  return function (target) {
-    const wrap = target[id] || target;
-    let $ = known.get(wrap);
-    if (!$) {
-      known.set(wrap, $ = new Proxy(wrap, handler));
-      if (init)
-        call(init, wrap);
-    }
-    return $;
-  };
+  return assign(
+    function (target) {
+      const wrap = target[id] || target;
+      let $ = known.get(wrap);
+      if (!$) {
+        known.set(wrap, $ = new Proxy(wrap, handler));
+        if (init)
+          call(init, wrap);
+      }
+      return $;
+    },
+    {extends: target => known.has(target[id] || target)}
+  );
 };

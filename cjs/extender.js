@@ -1,7 +1,7 @@
 'use strict';
 const {Proxy} = require('./proxy.js');
 const {bind, call} = require('./function.js');
-const {getOwnPropertyDescriptor, hasOwnProperty} = require('./object.js');
+const {assign, getOwnPropertyDescriptor, hasOwnProperty} = require('./object.js');
 const {ownKeys} = require('./reflect.js');
 const {Map, WeakMap} = require('./globals.js');
 
@@ -79,15 +79,18 @@ const extender = proto => {
 
   const known = new WeakMap;
 
-  return function (target) {
-    const wrap = target[id] || target;
-    let $ = known.get(wrap);
-    if (!$) {
-      known.set(wrap, $ = new Proxy(wrap, handler));
-      if (init)
-        call(init, wrap);
-    }
-    return $;
-  };
+  return assign(
+    function (target) {
+      const wrap = target[id] || target;
+      let $ = known.get(wrap);
+      if (!$) {
+        known.set(wrap, $ = new Proxy(wrap, handler));
+        if (init)
+          call(init, wrap);
+      }
+      return $;
+    },
+    {extends: target => known.has(target[id] || target)}
+  );
 };
 exports.extender = extender;

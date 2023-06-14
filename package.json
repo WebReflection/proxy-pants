@@ -21,8 +21,8 @@
   "license": "ISC",
   "devDependencies": {
     "ascjs": "^5.0.1",
-    "c8": "^7.12.0",
-    "typescript": "^4.8.4"
+    "c8": "^8.0.0",
+    "typescript": "^5.1.3"
   },
   "module": "./esm/index.js",
   "type": "module",

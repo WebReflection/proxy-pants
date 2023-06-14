@@ -40,3 +40,7 @@ assert(B(c) === b, 'B(c) should be b');
 assert(C(a) === c, 'C(a) should be c');
 assert(C(b) === c, 'C(b) should be c');
 assert(C(c) === c, 'C(c) should be c');
+
+assert(C.extends(c), 'C.extends(c)');
+assert(C.extends(a), 'C.extends(a)');
+assert(!C.extends(b), '!C.extends(b)');

@@ -248,9 +248,13 @@ const $ = Magic;
 const source = {};
 const target = Magic(source);
 
-target.isMagic;     // true
-target.magic;       // true
-target.hasMagic();  // true
+target.isMagic;         // true
+target.magic;           // true
+target.hasMagic();      // true
+
+// introspection
+Magic.extends(source);  // true
+Magic.extends(target);  // true
 ```
 
 
