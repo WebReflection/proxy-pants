@@ -66,11 +66,11 @@ const extender = proto => {
   const handler = {
     get: (target, key) => {
       if (key === id) return target;
-      let $ = overrides.get(key);
+      const $ = overrides.get(key);
       return $ ? $(target).get() : target[key];
     },
     set: (target, key, value) => {
-      let $ = overrides.get(key);
+      const $ = overrides.get(key);
       if ($) $(target).set(value);
       else target[key] = value;
       return true;
