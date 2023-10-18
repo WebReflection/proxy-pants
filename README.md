@@ -21,9 +21,9 @@ Secured and reliable Proxy based utilities for more or less common tasks:
   * **[fetch](#fetch)** to shortcut `fetch(url).json` and other methods as direct accessors, defaulting to `void` when the response is not *ok*
   * **[own](#own)** to destructure only own properties
   * **[secure](#secure)** to ensure local classes cannot be patched at runtime down their prototypal chain
-  * **[watcher](#watcher)** the good old [Object.prototype.watch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/watch.html) and [unwatch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/unwatch.html) methods to simplify selective reactive state handling.
+  * **[watcher](#watcher)** the good old [Object.prototype.watch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/watch.html) and [unwatch](https://cgi.cse.unsw.edu.au/~cs2041/doc/MDN_javascript_reference/Web/JavaScript/Reference/Global_Objects/Object/unwatch.html) methods to simplify selective reactive state handling
   * **[weak-cache](#weak-cache)** same as [cache](#cache) but the returned reference is weakly retained
-
+  * **[weak-proxy](#weak-proxy)** same as *Proxy* but it's register to the finalization registry so that if the `handler` contains a `collected(target)` callback, that will be invoked once the proxy reference is gone
 
 
 ### accessor
@@ -352,4 +352,23 @@ uids.a === uids.a;  // true
 'a' in uids;        // true
 delete uids.a;      // true
 'a' in uids;        // false
+```
+
+### weak-proxy
+
+Same proxy constructor but with automatic registration that will invoke a `collected(target)` callback once that happens.
+
+```js
+// import {WeakProxy} from 'proxy-pants/weak-proxy';
+import {WeakProxy} from 'proxy-pants';
+
+let ref = new WeakProxy(globalThis, {
+  collected(ref) {
+    console.assert(ref === globalThis);
+  }
+});
+
+// whenever `ref` is collected
+ref = null;
+// the assertion in the `collected` handler will be true
 ```

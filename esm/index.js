@@ -11,3 +11,6 @@ export {dsm} from './dsm.js';
 export {own} from './own.js';
 export {secure} from './secure.js';
 export {watcher} from './watcher.js';
+
+import WeakProxy from './weak-proxy.js';
+export {WeakProxy};

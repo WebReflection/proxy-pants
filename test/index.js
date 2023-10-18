@@ -4,7 +4,7 @@ globalThis.fetch = (...args) => Promise.resolve({
   ok: !!(ok++), json: () => Promise.resolve(args)
 });
 
-const {accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, fetch, own, secure, watcher, wcache} = require('../cjs');
+const {WeakProxy, accessor, applier, bound, bread, cache, caller, chain, crumbs, dsm, extender, fetch, own, secure, watcher, wcache} = require('../cjs');
 const {proxy: fnProxy} = require('../cjs/function');
 
 const {assert} = bound(console);
@@ -286,3 +286,16 @@ fetch('a', 1).json.then(result => {
     require('./extender.js');
   });
 });
+
+
+new WeakProxy(globalThis, {
+  collected(reference) {
+    assert(reference === globalThis);
+    console.log('OK');
+  },
+});
+
+setTimeout(() => {
+  gc();
+}, 1000);
+

@@ -9,5 +9,7 @@ export { dsm } from "./dsm.js";
 export { own } from "./own.js";
 export { secure } from "./secure.js";
 export { watcher } from "./watcher.js";
+export { WeakProxy };
+import WeakProxy from './weak-proxy.js';
 export { applier, caller } from "./function.js";
 export { bread, crumbs } from "./breadcrumbs.js";

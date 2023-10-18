@@ -40,3 +40,6 @@
 (m => {
   exports.watcher = m.watcher;
 })(require('./watcher.js'));
+
+const WeakProxy = require('./weak-proxy.js');
+exports.WeakProxy = WeakProxy;
